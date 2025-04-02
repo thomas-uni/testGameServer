@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GameServer.iml" filepath="$PROJECT_DIR$/.idea/GameServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/group3engine.iml" filepath="$PROJECT_DIR$/.idea/group3engine.iml" />
     </modules>
   </component>
 </project>
