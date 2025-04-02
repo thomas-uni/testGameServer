@@ -44,7 +44,7 @@ Networking::Networking()
         }
         buffer[n] = '\0';
         std::cout << "Client: " << buffer.data() << std::endl;
-        messages.emplace_back(buffer, length, &this_client);
+        messages.emplace_back(buffer, n + 1, &this_client);
     }
 }
 

@@ -11,8 +11,7 @@ void Game::Broadcast()
     {
         for (const Player &otherPlayer : players)
         {
-            if (player.id != otherPlayer.id &&
-                (player.state.bitmask & (1 << otherPlayer.id)) == 0)
+            if ((player.state.bitmask & (1 << otherPlayer.id)) == 0)
             {
                 // send the state to the other player
                 player.state.bitmask |= (1 << otherPlayer.id);
@@ -47,13 +46,16 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
         player.id = players.size();
         player.address = *client_addr;
         player.state = state;
+        player.state.bitmask |= (1 << player.id);
         players.emplace_back(player);
+        ipToPlayerId[ip] = player.id;
     }
     else
     {
         // update the player state
         int id = it->second;
         players[id].state = state;
+        players[id].state.bitmask |= (1 << id);
     }
 }
 
