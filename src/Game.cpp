@@ -43,10 +43,14 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
     {
         // add the player
         Player player;
-        player.id = players.size();
+        int id = players.size();
+        player.id = id;
         player.address = *client_addr;
         player.state = state;
         player.state.bitmask |= (1 << player.id);
+        // add the player address to the end of the state data
+        std::memcpy(players[id].state.data.data() + players[id].state.size, &players[id].address, sizeof(players[id].address));
+        players[id].state.size += sizeof(players[id].address);
         players.emplace_back(player);
         ipToPlayerId[ip] = player.id;
     }
@@ -56,6 +60,11 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
         int id = it->second;
         players[id].state = state;
         players[id].state.bitmask |= (1 << id);
+        // add the player address to the end of the state data
+        std::memcpy(players[id].state.data.data() + players[id].state.size, &players[id].address, sizeof(players[id].address));
+        players[id].state.size += sizeof(players[id].address);
+
+
     }
 }
 
