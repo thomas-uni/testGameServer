@@ -22,6 +22,8 @@ if(NOT WIN32)
     set(BoldWhite   "${Esc}[1;37m")
 endif()
 
+find_package(Threads REQUIRED)
+target_link_libraries(src PRIVATE Threads::Threads)
 # Set a default build type if none was specified
 set(default_build_type "Release")
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
