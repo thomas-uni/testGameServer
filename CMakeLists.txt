@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-project(group3engine CXX)
+project(group3server CXX)
 
 if(NOT WIN32)
     string(ASCII 27 Esc)

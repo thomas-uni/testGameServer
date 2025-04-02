@@ -40,7 +40,7 @@ void GameManager::ProcessMessage(std::tuple<std::array<char, BUFFER_SIZE>, size_
         Game game(PORT, mNetworking.GetServerAddress(), mNetworking.GetSocket());
         mGames.push_back(game);
         mGameMap[gameName] = mGames.size() - 1;
-        it->second = mGames.size() - 1;
+        it = mGameMap.find(gameName);
     }
     mGames[it->second].Receive(std::get<0>(message), std::get<1>(message), std::get<2>(message));
 
