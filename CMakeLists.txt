@@ -22,8 +22,7 @@ if(NOT WIN32)
     set(BoldWhite   "${Esc}[1;37m")
 endif()
 
-find_package(Threads REQUIRED)
-target_link_libraries(src PRIVATE Threads::Threads)
+
 # Set a default build type if none was specified
 set(default_build_type "Release")
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
@@ -42,6 +41,8 @@ add_subdirectory(src)
 set_target_properties(src PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
 target_compile_definitions(src PRIVATE CMAKE_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+find_package(Threads REQUIRED)
+target_link_libraries(src PRIVATE Threads::Threads)
 
 # Compiler warnings
 if ((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
