@@ -42,9 +42,8 @@ Networking::Networking()
         {
             std::cerr << "Receive failed" << std::endl;
         }
-        buffer[n] = '\0';
         std::cout << "Client: " << buffer.data() << std::endl;
-        messages.emplace_back(buffer, n + 1, &this_client);
+        messages.emplace_back(buffer, n, &this_client);
     }
 }
 
