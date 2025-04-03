@@ -49,8 +49,11 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
         player.state = state;
         player.state.bitmask |= (1 << player.id);
         players.emplace_back(player);
-        // add the player address to the end of the state data
-        std::memcpy(players[id].state.data.data() + players[id].state.size, &players[id].address, sizeof(players[id].address));
+        // add the player ip key to the end of the state data
+        // convert the ip to a string
+        std::string ipString = inet_ntoa(client_addr->sin_addr);
+        // add the ip to the end of the state data
+        std::memcpy(players[id].state.data.data() + players[id].state.size, ipString.c_str(), ipString.size());
         players[id].state.size += sizeof(players[id].address);
         ipToPlayerId[ip] = player.id;
         std::cout << "New player added: " << player.id  << " "  << ip << std::endl;
@@ -62,8 +65,10 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
         int id = it->second;
         players[id].state = state;
         players[id].state.bitmask |= (1 << id);
-        // add the player address to the end of the state data
-        std::memcpy(players[id].state.data.data() + players[id].state.size, &players[id].address, sizeof(players[id].address));
+        // convert the ip to a string
+        std::string ipString = inet_ntoa(client_addr->sin_addr);
+        // add the ip to the end of the state data
+        std::memcpy(players[id].state.data.data() + players[id].state.size, ipString.c_str(), ipString.size());
         players[id].state.size += sizeof(players[id].address);
 
 
