@@ -27,8 +27,13 @@ public:
     std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*>> GetMessages() {
         // copy the messages to a new vector and return it
         // and clear the original vector
-        std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*>> temp = messages;
-        messages.clear();
+        std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in *>> temp;
+        temp.reserve(messages.size());
+        {
+            std::lock_guard<std::mutex> lock(messages_mutex);
+            temp = messages;
+            messages.clear();
+        }
         return temp;
     }
     sockaddr_in GetServerAddress() { return server_addr; }
@@ -44,6 +49,8 @@ private:
 
     // list of clients
     std::vector<struct sockaddr_in> clients;
+
+    std::mutex messages_mutex;
 
 };
 

@@ -43,7 +43,10 @@ Networking::Networking()
             std::cerr << "Receive failed" << std::endl;
         }
         std::cout << "Client: " << buffer.data() << std::endl;
-        messages.emplace_back(buffer, n, &this_client);
+        {
+            std::lock_guard<std::mutex> lock(messages_mutex);
+            messages.emplace_back(buffer, n, &this_client);
+        }
     }
 }
 
