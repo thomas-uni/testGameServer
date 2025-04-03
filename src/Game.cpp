@@ -37,7 +37,7 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
     state.bitmask = 0;
     // get the player id
     std::uint32_t ip = client_addr->sin_addr.s_addr ^
-                      (client_addr->sin_port << 16);
+                      (client_addr->sin_port);
     auto it = ipToPlayerId.find(ip);
     if (it == ipToPlayerId.end())
     {
@@ -53,6 +53,8 @@ void Game::Receive(std::array<char, BUFFER_SIZE>buffer, int size, sockaddr_in *c
         std::memcpy(players[id].state.data.data() + players[id].state.size, &players[id].address, sizeof(players[id].address));
         players[id].state.size += sizeof(players[id].address);
         ipToPlayerId[ip] = player.id;
+        std::cout << "New player added: " << player.id << std::endl;
+        std::cout << "IP and port: " << inet_ntoa(client_addr->sin_addr) << ":" << ntohs(client_addr->sin_port) << std::endl;
     }
     else
     {
