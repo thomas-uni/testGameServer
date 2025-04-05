@@ -44,7 +44,7 @@ Networking::Networking()
         }
         {
             std::lock_guard<std::mutex> lock(messages_mutex);
-            messages.emplace_back(buffer, n, &this_client);
+            messages.emplace_back(buffer, n, this_client);
         }
     }
 }

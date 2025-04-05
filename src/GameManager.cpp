@@ -20,7 +20,7 @@ void GameManager::Tick()
     }
 }
 
-void GameManager::ProcessMessage(std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*> message)
+void GameManager::ProcessMessage(std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in> message)
 {
     // get the first backslash from the message
     std::string messageString(std::get<0>(message).data());

@@ -20,7 +20,7 @@ private:
     std::vector<Game> mGames;
     std::unordered_map<std::string, size_t> mGameMap;
 
-    void ProcessMessage(std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*> message);
+    void ProcessMessage(std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in> message);
 };
 
 

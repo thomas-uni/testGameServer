@@ -41,7 +41,7 @@ public:
     Game(int port, sockaddr_in server_addr, int server_socket);
     ~Game() = default;
     void Broadcast();
-    void Receive(std::array<char, BUFFER_SIZE> buffer, int size, sockaddr_in *client_addr);
+    void Receive(std::array<char, BUFFER_SIZE> buffer, int size, sockaddr_in client_addr);
 
 private:
     // map of ip address to player id

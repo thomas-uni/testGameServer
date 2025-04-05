@@ -25,10 +25,10 @@ public:
         listen_thread.join();
 
     }
-    std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*>> GetMessages() {
+    std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in>> GetMessages() {
         // copy the messages to a new vector and return it
         // and clear the original vector
-        std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in *>> temp;
+        std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in>> temp;
         temp.reserve(messages.size());
         {
             std::lock_guard<std::mutex> lock(messages_mutex);
@@ -45,7 +45,7 @@ private:
     int my_socket;
     struct sockaddr_in server_addr, client_addr;
     std::array<char, BUFFER_SIZE> buffer;
-    std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in*>> messages;
+    std::vector<std::tuple<std::array<char, BUFFER_SIZE>, size_t, sockaddr_in>> messages;
     std::thread listen_thread;
 
     // list of clients
