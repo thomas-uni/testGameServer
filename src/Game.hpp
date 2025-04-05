@@ -48,10 +48,10 @@ private:
     std::unordered_map<std::uint32_t , int> ipToPlayerId;
 
     std::vector<Player> players;
-    int maxPlayers;
     int port;
     sockaddr_in server_addr;
     int server_socket;
+    int maxPlayers;
 
 };
 
